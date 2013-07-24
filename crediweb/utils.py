@@ -31,7 +31,15 @@ def convert_date(value):
         return ""
 
 def search_block_persons(soup, id):
-    block = soup.find("dl", {"id": id}).find("tbody")
+    block = soup.find("dl", {"id": id})
+    if not block:
+        return None
+
+    block = block.find("tbody")
+
+    if not block:
+        return None
+
     persons = block.findAll("tr")
 
     person_list = []

@@ -19,7 +19,7 @@ class CrediWeb:
             self.login()
 
     def login(self):
-        self.session.get("https://www.crediweb.lv/login/")
+        self.session.get("https://www.crediweb.lv/login/?_lang=en")
         html = self.session.post("https://www.crediweb.lv/login/", data={'_auth': "1", 'user': self.username, 'pass': self.password, })
 
         if 'message incorrect' in html.text:
@@ -46,9 +46,14 @@ class CrediWeb:
 
 
     def get(self, number, type="simple"):
-        url = url_simple = "https://www.crediweb.lv/company/%s/"
-        if not type == 'simple':
-             url = "https://www.crediweb.lv/company/%s/?_full=1"
+        import pdb; pdb.set_trace()
+        if not self.username:
+            url = url_simple = "https://www.crediweb.lv/pub/company/%s/?_lang=en"
+            type = "simple"
+        else:
+            url = url_simple = "https://www.crediweb.lv/company/%s/?_lang=en"
+            if not type == 'simple':
+                 url = "https://www.crediweb.lv/company/%s/?_full=1&_lang=en"
 
         html = self.session.get(url % str(number))
         if 'The limit of your' in html:
@@ -64,7 +69,7 @@ class CrediWeb:
             "legal_form": search_by_name(soup, "Legal form"),
             "registration_date": convert_date(search_by_name(soup, "Registration date")),
             "share_capital": search_by_name(soup, "Share capital"),
-            "legal_address": search_by_name_dt(soup, "Legal address"),
+            "legal_address": search_by_name_dt(soup, "Legal address") or search_by_name(soup, "Legal address"),
             "real_address": search_by_name_dt(soup, "Real address"),
             "phone_number": search_by_name_dt(soup, "Phone number"),
             "fax": search_by_name_dt(soup, "Fax"),

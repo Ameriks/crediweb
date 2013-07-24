@@ -17,5 +17,6 @@ setup(
         "beautifulsoup4 >= 4.2.1",
         "vatnumber >= 1.1",
         "suds >= 0.4",
+        "html5lib >= 1.0b2",
     ],
 )
