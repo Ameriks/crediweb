@@ -1,0 +1,3 @@
+
+class UnAuthenticated(Exception):
+    pass
