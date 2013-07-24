@@ -46,7 +46,6 @@ class CrediWeb:
 
 
     def get(self, number, type="simple"):
-        import pdb; pdb.set_trace()
         if not self.username:
             url = url_simple = "https://www.crediweb.lv/pub/company/%s/?_lang=en"
             type = "simple"

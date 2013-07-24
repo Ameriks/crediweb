@@ -56,6 +56,13 @@ def search_block_persons(soup, id):
     return person_list
 
 
+def check_vies(vat):
+    try:
+        return vatnumber.check_vies(vat)
+    except:
+        return None
+
 def check_vat(number):
     vat = "LV%s" % str(number)
-    return {"vat": vat, "check": vatnumber.check_vies(vat), "valid": vatnumber.check_vat_lv(str(number))}
+    return {"vat": vat, "check": check_vies(vat), "valid": vatnumber.check_vat_lv(str(number))}
+
