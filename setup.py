@@ -15,5 +15,7 @@ setup(
     install_requires=[
         "requests >= 1.2.3",
         "beautifulsoup4 >= 4.2.1",
+        "vatnumber >= 1.1",
+        "suds >= 0.4",
     ],
 )

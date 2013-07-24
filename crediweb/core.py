@@ -1,7 +1,7 @@
 # coding=utf-8
 from .session import CWSession
 from .exceptions import *
-from .utils import search_by_name, get_title, convert_date, search_block_persons
+from .utils import search_by_name, search_by_name_dt, get_title, convert_date, search_block_persons, check_vat
 from bs4 import BeautifulSoup
 
 
@@ -16,6 +16,7 @@ class CrediWeb:
         if 'username' in kwargs and 'password' in kwargs:
             self.username = kwargs.get('username')
             self.password = kwargs.get('password')
+            self.login()
 
     def login(self):
         self.session.get("https://www.crediweb.lv/login/")
@@ -63,14 +64,15 @@ class CrediWeb:
             "legal_form": search_by_name(soup, "Legal form"),
             "registration_date": convert_date(search_by_name(soup, "Registration date")),
             "share_capital": search_by_name(soup, "Share capital"),
-            "legal_address": search_by_name(soup, "Legal address"),
-            "real_address": search_by_name(soup, "Real address"),
-            "phone_number": search_by_name(soup, "Phone number"),
-            "fax": search_by_name(soup, "Fax"),
-            "email": search_by_name(soup, "E-mail"),
-            "homepage": search_by_name(soup, "Home page"),
+            "legal_address": search_by_name_dt(soup, "Legal address"),
+            "real_address": search_by_name_dt(soup, "Real address"),
+            "phone_number": search_by_name_dt(soup, "Phone number"),
+            "fax": search_by_name_dt(soup, "Fax"),
+            "email": search_by_name_dt(soup, "E-mail"),
+            "homepage": search_by_name_dt(soup, "Home page"),
             "management": search_block_persons(soup, "management"),
             "shareholders": search_block_persons(soup, "shareHolders"),
+            "vat": check_vat(number),
         }
         if type != "simple":
             # here we will append advanced data from crediweb.
