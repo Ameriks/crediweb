@@ -1,3 +1,4 @@
+# coding=utf-8
 import re
 import datetime
 
@@ -12,7 +13,7 @@ def get_title(soup):
     try:
         return re.findall(r'\"(.+?)\"', title)[0].title()
     except:
-        return title.upper().replace("SIA", "").replace("AS", "").replace("BIEDRĪBA", "").strip().title()
+        return title.upper().replace(u"SIA", u"").replace(u"AS", u"").replace(u"BIEDRĪBA", u"").strip().title()
 
 def convert_date(value):
     try:

@@ -1,3 +1,4 @@
+# coding=utf-8
 from .session import CWSession
 from .exceptions import *
 from .utils import search_by_name, get_title, convert_date, search_block_persons
