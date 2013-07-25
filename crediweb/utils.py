@@ -41,7 +41,7 @@ def search_block_persons(soup, id):
         return None
 
     persons = block.findAll("tr")
-
+    import pdb; pdb.set_trace()
     person_list = []
     for person in persons:
         name_pk = person.find("div", {"class": "c_text"}) or person.find("div", {"class": "special"})
