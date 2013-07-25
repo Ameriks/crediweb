@@ -62,9 +62,12 @@ class CrediWeb:
 
         soup = BeautifulSoup(html.text)
 
+        title = get_title(soup)
+
         data = {
             "registration_no": number,
-            "company_name": get_title(soup),
+            "company_name": title,
+            "short_company_name": get_short_title(title),
             "legal_form": search_by_name(soup, "Legal form"),
             "registration_date": convert_date(search_by_name(soup, "Registration date")),
             "share_capital": search_by_name(soup, "Share capital"),

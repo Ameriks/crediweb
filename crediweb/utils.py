@@ -66,3 +66,19 @@ def check_vat(number):
     vat = "LV%s" % str(number)
     return {"vat": vat, "check": check_vies(vat), "valid": vatnumber.check_vat_lv(str(number))}
 
+
+def short_title_replace(word):
+    word_check = word.lower()
+    if word_check == 'un':
+        return '&'
+    return word[0]
+
+def get_short_title(title):
+    splitted = title.split(" ")
+    if len(title) < 10:
+        return title
+    if len(splitted) > 2:
+        return "".join([short_title_replace(x) for x in splitted]).upper()
+    if len(splitted[0]) < 9:
+        return "%s%s" % (splitted[0].capitalize(), splitted[1][0].upper())
+    return "%s%s" % (splitted[0][:5].capitalize(), splitted[1][:5].capitalize())
