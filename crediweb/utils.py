@@ -44,7 +44,7 @@ def search_block_persons(soup, id):
 
     person_list = []
     for person in persons:
-        name_pk = person.find("div", {"class": "c_text"})
+        name_pk = person.find("div", {"class": "c_text"}) or person.find("div", {"class": "special"})
         p_data = {
             "name": name_pk.next.replace(",","").strip(),
             "pk": name_pk.findNext().text,
