@@ -55,11 +55,13 @@ class CrediWeb:
                  url = "https://www.crediweb.lv/company/%s/?_full=1&_lang=en"
 
         html = self.session.get(url % str(number))
+
         if 'The limit of your' in html:
             print "Subscription plan have ended."
             html = self.session.get(url_simple % str(number))
             type = "simple"
 
+        html.encoding = "utf-8"
         soup = BeautifulSoup(html.text)
 
         title = get_title(soup)
@@ -91,7 +93,7 @@ class CrediWeb:
             "shareholders": search_block_persons(soup, "shareHolders"),
             "vat": check_vat(number),
         }
-        import pdb; pdb.set_trace()
+
         if type != "simple":
             # here we will append advanced data from crediweb.
             pass
