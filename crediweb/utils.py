@@ -48,6 +48,7 @@ def search_block_persons(soup, id):
             "name": name_pk.next.replace(",","").strip(),
             "pk": name_pk.findNext().text,
         }
+        import pdb; pdb.set_trace()
         info = [t.text if not isinstance(t, basestring) else t for t in name_pk.parent.findNextSibling("td").contents]
         info = ", ".join(filter(None, info)).replace(u"\xa0", " ")
         p_data.update({"info": info})
