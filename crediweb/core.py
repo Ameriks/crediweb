@@ -91,6 +91,7 @@ class CrediWeb:
             "shareholders": search_block_persons(soup, "shareHolders"),
             "vat": check_vat(number),
         }
+        import pdb; pdb.set_trace()
         if type != "simple":
             # here we will append advanced data from crediweb.
             pass
