@@ -59,6 +59,7 @@ def search_block_persons(soup, id):
 
 def check_vies(vat):
     try:
+        import pdb; pdb.set_trace()
         return vatnumber.check_vies(vat)
     except:
         return None
