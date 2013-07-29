@@ -4,6 +4,8 @@ import datetime
 
 import vatnumber
 
+CITIES = ["Daugavpils", "Jēkabpils", "Jelgava", "Jūrmala", "Liepāja", "Rēzekne", "Rīga", "Valmiera", "Ventspils"]
+
 def search_by_name(soup, title):
     try:
         return soup.find('div', text=re.compile(title)).parent.find("div", {"class": "cd"}).text
@@ -81,3 +83,30 @@ def get_short_title(title):
     if len(splitted[0]) < 9:
         return "%s%s" % (splitted[0].capitalize(), splitted[1][0].upper())
     return "%s%s" % (splitted[0][:5].capitalize(), splitted[1][:5].capitalize())
+
+def get_address(address):
+    return_dict = {
+        "postal_code": "",
+        "country": "Latvia",
+        "city": "",
+        "address": ""
+    }
+    regex = re.compile("LV[-]{0,1}[0-9]{4}", re.IGNORECASE|re.UNICODE)
+    postal_code = regex.findall(address)
+    if postal_code:
+        return_dict.update({"postal_code": postal_code[0]})
+
+    regex = re.compile("[, ]*LV[-]{0,1}[0-9]{4}[, ]*", re.IGNORECASE|re.UNICODE)
+    for found in regex.findall(address):
+        address = address.replace(found, "")
+
+    for city in CITIES:
+        if city in address:
+            return_dict.update({"city": city})
+            regex = re.compile("[, ]*%s[, ]*" % city, re.IGNORECASE|re.UNICODE)
+            for found in regex.findall(address):
+                address = address.replace(found, "")
+
+    return_dict.update({"address": address})
+
+    return return_dict

@@ -66,6 +66,11 @@ class CrediWeb:
 
         title = get_title(soup)
 
+
+
+        legal_address = search_by_name_dt(soup, "Legal address") or search_by_name(soup, "Legal address")
+
+
         data = {
             "registration_no": number,
             "company_name": title,
@@ -73,18 +78,8 @@ class CrediWeb:
             "legal_form": search_by_name(soup, "Legal form"),
             "registration_date": convert_date(search_by_name(soup, "Registration date")),
             "share_capital": search_by_name(soup, "Share capital"),
-            "legal_address": {
-                "address": search_by_name_dt(soup, "Legal address") or search_by_name(soup, "Legal address"),
-                "city": "",
-                "postal_code": "",
-                "country": "",
-                },
-            "real_address": {
-                "address": search_by_name_dt(soup, "Real address"),
-                "city": "",
-                "postal_code": "",
-                "country": "",
-                },
+            "legal_address": get_address(legal_address),
+            "real_address": get_address(search_by_name_dt(soup, "Real address")),
             "phone_number": search_by_name_dt(soup, "Phone number"),
             "fax": search_by_name_dt(soup, "Fax"),
             "email": search_by_name_dt(soup, "E-mail"),
