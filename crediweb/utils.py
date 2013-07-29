@@ -4,7 +4,7 @@ import datetime
 
 import vatnumber
 
-CITIES = ["Daugavpils", "Jēkabpils", "Jelgava", "Jūrmala", "Liepāja", "Rēzekne", "Rīga", "Valmiera", "Ventspils"]
+CITIES = [u"Daugavpils", u"Jēkabpils", u"Jelgava", u"Jūrmala", u"Liepāja", u"Rēzekne", u"Rīga", u"Valmiera", u"Ventspils"]
 
 def search_by_name(soup, title):
     try:
