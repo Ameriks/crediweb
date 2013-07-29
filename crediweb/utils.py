@@ -1,7 +1,6 @@
 # coding=utf-8
 import re
 import datetime
-
 import vatnumber
 
 CITIES = [u"Daugavpils", u"Jēkabpils", u"Jelgava", u"Jūrmala", u"Liepāja", u"Rēzekne", u"Rīga", u"Valmiera", u"Ventspils"]
@@ -57,12 +56,18 @@ def search_block_persons(soup, id):
     return person_list
 
 
+
 def check_vies(vat):
-    try:
-        import pdb; pdb.set_trace()
-        return vatnumber.check_vies(vat)
-    except:
-        return None
+    '''
+    Check VAT number for EU member state using the SOAP Service
+    '''
+    from suds.client import Client
+    client = Client(vatnumber.VIES_URL)
+    code = vat[:2]
+    number = vat[2:]
+    res = client.service.checkVat(countryCode=code, vatNumber=number)
+    return bool(res['valid'])
+
 
 def check_vat(number):
     vat = "LV%s" % str(number)
