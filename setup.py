@@ -17,6 +17,7 @@ setup(
         "requests >= 1.2.3",
         "beautifulsoup4 >= 4.2.1",
         "vatnumber >= 1.1",
+        "pycountry >= 0.19",
         # "suds >= 0.4",
         "html5lib >= 1.0b2",
     ],
