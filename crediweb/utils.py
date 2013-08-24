@@ -73,6 +73,8 @@ def short_title_replace(word):
     word_check = word.lower()
     if word_check == 'un':
         return '&'
+    if len(word) == 0:
+        return ''
     return word[0]
 
 def get_short_title(title):
