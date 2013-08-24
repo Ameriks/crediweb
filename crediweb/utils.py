@@ -84,7 +84,7 @@ def get_short_title(title):
         return "".join([short_title_replace(x) for x in splitted]).upper()
     if len(splitted[0]) < 9:
         return "%s%s" % (splitted[0].capitalize(), splitted[1][0].upper())
-    return "%s%s" % (splitted[0][:5].capitalize(), splitted[1][:5].capitalize())
+    return "%s%s" % (splitted[0][:4].capitalize(), splitted[1][:4].capitalize())
 
 def replace_text(string, text):
     regex = re.compile("[, ]*%s[, ]*" % text, re.IGNORECASE|re.UNICODE)
