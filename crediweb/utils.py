@@ -85,7 +85,19 @@ def get_short_title(title):
         return "%s%s" % (splitted[0].capitalize(), splitted[1][0].upper())
     return "%s%s" % (splitted[0][:5].capitalize(), splitted[1][:5].capitalize())
 
+def replace_text(string, text):
+    regex = re.compile("[, ]*%s[, ]*" % text, re.IGNORECASE|re.UNICODE)
+    for found in regex.findall(string):
+        string = string.replace(found, "")
+    return string
+
 def get_address(address, country="Latvia"):
+
+    # Check country name in latvian - Latvija
+    if 'latvija' in address.lower():
+        country = "Latvia"
+        address = replace_text(address, country)
+
     return_dict = {
         "postal_code": "",
         "country": country,
@@ -96,27 +108,26 @@ def get_address(address, country="Latvia"):
     if country is None:
         # lets search for country
         for country in pycountry.countries.objects:
-            if country.name.lower() in address:
+            if country.name.lower() in address.lower():
                 return_dict.update({"country": country.name})
-                regex = re.compile("[, ]*%s[, ]*" % country.name, re.IGNORECASE|re.UNICODE)
-                for found in regex.findall(address):
-                    address = address.replace(found, "")
+                address = replace_text(address, country.name)
+                break
+    else:
+        address = replace_text(address, country)
+
     if address.get('country') == "Latvia":
         regex = re.compile("LV[-]{0,1}[0-9]{4}", re.IGNORECASE|re.UNICODE)
         postal_code = regex.findall(address)
         if postal_code:
             return_dict.update({"postal_code": postal_code[0]})
 
-        regex = re.compile("[, ]*LV[-]{0,1}[0-9]{4}[, ]*", re.IGNORECASE|re.UNICODE)
-        for found in regex.findall(address):
-            address = address.replace(found, "")
+        address = replace_text(address, "LV[-]{0,1}[0-9]{4}")
 
         for city in CITIES:
             if city.lower() in address.lower():
                 return_dict.update({"city": city})
-                regex = re.compile("[, ]*%s[, ]*" % city, re.IGNORECASE|re.UNICODE)
-                for found in regex.findall(address):
-                    address = address.replace(found, "")
+                address = replace_text(address, city)
+                break
 
     return_dict.update({"address": address})
 
