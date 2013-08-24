@@ -76,6 +76,7 @@ def short_title_replace(word):
     return word[0]
 
 def get_short_title(title):
+    title = title.decode('utf-8')
     title = title.replace("SIA", "").replace("AS", "").replace("\"", "").replace("'", "").strip()
     splitted = title.split(" ")
     if len(title) < 10 or len(splitted)==1:
