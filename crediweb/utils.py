@@ -97,6 +97,7 @@ def get_address(address, country="Latvia"):
     if 'latvija' in address.lower():
         country = "Latvia"
         address = replace_text(address, country)
+        address = replace_text(address, "Latvija")
 
     return_dict = {
         "postal_code": "",
