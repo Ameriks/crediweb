@@ -120,7 +120,7 @@ def get_address(address, country="Latvia"):
     else:
         address = replace_text(address, country)
 
-    if address.get('country') == "Latvia":
+    if return_dict.get('country') == "Latvia":
         regex = re.compile("LV[-]{0,1}[0-9]{4}", re.IGNORECASE|re.UNICODE)
         postal_code = regex.findall(address)
         if postal_code:
